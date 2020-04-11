@@ -9,14 +9,12 @@
 import Foundation
 
 
-struct user{
+struct userNew{
     var email: String
-    var password: String
     var loginTimes: [String]
     let uploadedHw: [String]
     var dictionary: [String: Any]{
         return ["email":email,
-                "password": password,
                 "loginTimes": loginTimes,
                 "uploadedHw": uploadedHw
         ]

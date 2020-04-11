@@ -29,13 +29,15 @@ func getImages(){
 }
 
 class WatchViewController: UIViewController {
-
+    var vSpinner : UIView?
     
     @IBOutlet weak var assignmentName: UILabel!
     @IBOutlet weak var AssignmentTeacher: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
+    let myGroup = DispatchGroup()
     
+    var imageNumber: Int = 0
     
     override func viewDidLoad() {
         //watch_image()
@@ -47,79 +49,77 @@ class WatchViewController: UIViewController {
         assignmentName.text = passedName
         AssignmentTeacher.text = passedTeacher
         get_img()
-        
+        myGroup.notify(queue: DispatchQueue.main, execute: {
+            print("Finished all requests.")
+        })
         // Do any additional setup after loading the view.
     }
     
-    
-    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            self.vSpinner?.removeFromSuperview()
+            self.vSpinner = nil
+        }
+    }
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
     func get_img(){
         
-
         let docRef = db.collection("homeworks").document(selectedIndex)
         print(docRef)
         docRef.getDocument { (document, error) in
             
             if let document = document, document.exists {
+                self.myGroup.enter()
                 //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
                 //print("Document data: \(dataDescription)")
                 
                 //print(yourArray.count)
-                
+                self.imageNumber = document.data()!["NumberOfImages"] as! Int
                 let imageName = document.data()!["ImageName"] as! [String]
+                
                 print("Name" ,imageName)
-                downloadFromServer(url: imageName)
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-
-                    let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-                    loadingIndicator.hidesWhenStopped = true
-                    loadingIndicator.style = UIActivityIndicatorView.Style.gray
-                    loadingIndicator.startAnimating();
-
-                    alert.view.addSubview(loadingIndicator)
-                    self.present(alert, animated: true, completion: nil)
-
+                
+                for i in imageName{
+                let i = URL(string: i)
+                    print("I" , i)
+                    URLSession.shared.dataTask(with: i!) { data, response, error in
+                     guard
+                         let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                         let data = data, error == nil,
+                         let image = UIImage(data: data)
+                         
+                         else { return }
+                        print("Here", image)
+                     DispatchQueue.main.async() {
+                        print("Appended")
+                        imageArrayWatch.append(image)
+                     }
+                     }.resume()
                 }
-                //let gsReference = storage.reference(forURL: "gs://homeworkapp-21143.appspot.com/uploads/\(imageName)")
 
-//                for i in imageName{
-//                    let url = URL(string: i)
-//                    let resource = ImageResource(downloadURL: url!)
-//
-//                    imageArrayWatch.append(resource)
-//                    print("Que")
-//                    var someImageView : UIImageView
-//                    someImageView  = UIImageView(frame:CGRect(x:0, y: 250, width: 480, height: 320));
-//                    DispatchQueue.main.async {
-//                    someImageView.kf.setImage(with: resource, completionHandler: { (result) in
-//                        switch result {
-//                        case .success(_):
-//                            print("Done")
-//                        case .failure(let err):
-//                            print(err.localizedDescription)
-//                        }
-//                    })
-//                        self.view.addSubview(someImageView)
-//                    self.imageView.kf.setImage(with: resource, completionHandler: { (result) in
-//                        switch result {
-//                        case .success(_):
-//                            print("Done")
-//                        case .failure(let err):
-//                            print(err.localizedDescription)
-//                        }
-//                    })
-//                    }
-//                }
                 
-                
-
+                self.myGroup.leave()
             } else {
                 print(error?.localizedDescription)
                 print("eroro")
                 
             }
+
+            
         }
     }
 

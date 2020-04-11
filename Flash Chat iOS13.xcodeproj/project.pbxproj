@@ -177,21 +177,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B628172235DEE8100E35CAF /* SmartAssgn */ = {
+		0B628172235DEE8100E35CAF /* Flash Chat iOS13 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B628187235DEE8400E35CAF /* Build configuration list for PBXNativeTarget "SmartAssgn" */;
+			buildConfigurationList = 0B628187235DEE8400E35CAF /* Build configuration list for PBXNativeTarget "Flash Chat iOS13" */;
 			buildPhases = (
 				52EB5BAE362ECA22B1D0F9B7 /* [CP] Check Pods Manifest.lock */,
 				0B62816F235DEE8100E35CAF /* Sources */,
 				0B628170235DEE8100E35CAF /* Frameworks */,
 				0B628171235DEE8100E35CAF /* Resources */,
 				AB730EDFF98326F5859B9883 /* [CP] Embed Pods Frameworks */,
+				6F7B87BDDC02DCB3045A82DD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = SmartAssgn;
+			name = "Flash Chat iOS13";
 			productName = "Flash Chat iOS13";
 			productReference = 0B628173235DEE8100E35CAF /* Smart Assign.app */;
 			productType = "com.apple.product-type.application";
@@ -224,7 +225,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B628172235DEE8100E35CAF /* SmartAssgn */,
+				0B628172235DEE8100E35CAF /* Flash Chat iOS13 */,
 			);
 		};
 /* End PBXProject section */
@@ -266,6 +267,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F7B87BDDC02DCB3045A82DD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AB730EDFF98326F5859B9883 /* [CP] Embed Pods Frameworks */ = {
@@ -460,7 +478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.kyrylo.SmartAssign;
+				PRODUCT_BUNDLE_IDENTIFIER = co.kyrylo.FlashApp;
 				PRODUCT_NAME = "Smart Assign";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -479,7 +497,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.kyrylo.SmartAssign;
+				PRODUCT_BUNDLE_IDENTIFIER = co.kyrylo.FlashApp;
 				PRODUCT_NAME = "Smart Assign";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -498,7 +516,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B628187235DEE8400E35CAF /* Build configuration list for PBXNativeTarget "SmartAssgn" */ = {
+		0B628187235DEE8400E35CAF /* Build configuration list for PBXNativeTarget "Flash Chat iOS13" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B628188235DEE8400E35CAF /* Debug */,

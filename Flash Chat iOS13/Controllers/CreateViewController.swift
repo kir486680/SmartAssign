@@ -41,7 +41,7 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     
     
-   
+    var showingData: [String] = teacherClassDict["Parker"] as! [String]
    
     
     @IBOutlet weak var homeworkName: UITextField!
@@ -60,7 +60,9 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         pickerView1.delegate = self
         pickerView1.dataSource = self
         self.hideKeyboardWhenTappedAround()
-
+        print("Teacher class dict", teacherClassDict[textView])
+        print("Class", pickerClassData)
+        print("Teacher", pickerTeacherData)
         //print(pickerClassData)
         //print("Teachers " , pickerTeacherData)
         //let pickerClassData = getSomeData(field: "ClassName")
@@ -80,7 +82,7 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == pickerView1{
 
-            return teacherClassDict[textView]![row] as? String
+            return showingData[row]
             
             
         }
@@ -89,10 +91,15 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == pickerView1{
-            textView1 = pickerClassData[row]
+            textView1 = showingData[row]
+            print("Text", textView1)
+            
         }else{
-            //pickerView.reloadAllComponents()
+            print("Selected row View 1", pickerTeacherData[row])
             textView = pickerTeacherData[row]
+            //print("Now", )
+            //pickerView.reloadAllComponents()
+            showingData = teacherClassDict[pickerTeacherData[row]] as! [String]
             pickerView1.reloadAllComponents()
         }
     }

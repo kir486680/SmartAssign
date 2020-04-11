@@ -14,5 +14,5 @@ target 'Flash Chat iOS13' do
   pod 'OpalImagePicker'
   pod 'Kingfisher', '~> 5.0'
   pod 'PDFGenerator', '~> 3.1'
-
+  pod 'GoogleSignIn'
 end

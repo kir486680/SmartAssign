@@ -26,17 +26,7 @@ class RegisterViewController: UIViewController {
                     print(e.localizedDescription)
                 }else {
 
-                    var someUser = user(email: email, password: password, loginTimes: [], uploadedHw: [])
-                    someUser.appendCurrentDate()
-                    
-                    // Add a new document with a generated ID
-                    db.collection("user").document(email).setData(someUser.dictionary) { err in
-                        if let err = err {
-                            print("Error creating user")
-                        } else {
-                            print("User created")
-                        }
-                    }
+
 
                     self.performSegue(withIdentifier: "RegisterToChat", sender: self)
                 }
