@@ -28,25 +28,20 @@ func drawPDFfromURL(url: URL) -> UIImage? {
 
     return img
 }
-
-func downloadFromServer(url: [String]){
-    
-    for i in url{
-    let i = URL(string: i)
-        print("I" , i)
-        URLSession.shared.dataTask(with: i!) { data, response, error in
-         guard
-             let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-             let data = data, error == nil,
-             let image = UIImage(data: data)
-             
-             else { return }
-            print("Here", image)
-         DispatchQueue.main.async() {
-            print("Appended")
-            imageArrayWatch.append(image)
-         }
-         }.resume()
-    }
-
+func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
 }
+func downloadImage(from url: URL) {
+    print("Download Started")
+    getData(from: url) { data, response, error in
+        guard let data = data, error == nil else { return }
+        print(response?.suggestedFilename ?? url.lastPathComponent)
+        print("Download Finished")
+        DispatchQueue.main.async() {
+            let image = UIImage(data: data)
+            imageArrayWatch.append(image!)
+        }
+    }
+}
+
+

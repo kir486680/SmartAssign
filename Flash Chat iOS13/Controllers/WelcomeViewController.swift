@@ -20,9 +20,7 @@ class WelcomeViewController: UIViewController, GIDSignInDelegate {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
-        let gSignIn = GIDSignInButton(frame: CGRect(x: 0, y: 0, width: 230, height: 48))
-        gSignIn.center = view.center
-        view.addSubview(gSignIn)
+
         titleLabel.text = "⚡️SmartAssign"
         //getSomeDataName(field: "teacherName")
         //getSomeDataCourse(field: "ClassName")

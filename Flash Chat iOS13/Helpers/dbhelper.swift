@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 func appendToTheUser (email: String, field: String, data: String)
 {
@@ -25,7 +26,6 @@ func appendToTheUser (email: String, field: String, data: String)
     }
     
 }
-
 
 
 

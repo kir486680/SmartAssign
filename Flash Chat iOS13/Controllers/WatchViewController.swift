@@ -35,7 +35,7 @@ class WatchViewController: UIViewController {
     @IBOutlet weak var AssignmentTeacher: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
-    let myGroup = DispatchGroup()
+
     
     var imageNumber: Int = 0
     
@@ -49,9 +49,7 @@ class WatchViewController: UIViewController {
         assignmentName.text = passedName
         AssignmentTeacher.text = passedTeacher
         get_img()
-        myGroup.notify(queue: DispatchQueue.main, execute: {
-            print("Finished all requests.")
-        })
+
         // Do any additional setup after loading the view.
     }
     
@@ -82,7 +80,7 @@ class WatchViewController: UIViewController {
         docRef.getDocument { (document, error) in
             
             if let document = document, document.exists {
-                self.myGroup.enter()
+                
                 //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 
                 //print("Document data: \(dataDescription)")
@@ -91,28 +89,14 @@ class WatchViewController: UIViewController {
                 self.imageNumber = document.data()!["NumberOfImages"] as! Int
                 let imageName = document.data()!["ImageName"] as! [String]
                 
-                print("Name" ,imageName)
+                print("Name" ,self.imageNumber)
                 
-                for i in imageName{
-                let i = URL(string: i)
-                    print("I" , i)
-                    URLSession.shared.dataTask(with: i!) { data, response, error in
-                     guard
-                         let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                         let data = data, error == nil,
-                         let image = UIImage(data: data)
-                         
-                         else { return }
-                        print("Here", image)
-                     DispatchQueue.main.async() {
-                        print("Appended")
-                        imageArrayWatch.append(image)
-                     }
-                     }.resume()
-                }
+                self.downloadFromServer(url: imageName)
+                
+                print("Exit")
 
                 
-                self.myGroup.leave()
+                
             } else {
                 print(error?.localizedDescription)
                 print("eroro")
@@ -121,6 +105,38 @@ class WatchViewController: UIViewController {
 
             
         }
+    }
+    func downloadFromServer(url: [String]){
+        self.showSpinner(onView: self.view)
+        let g = DispatchGroup()
+        for i in url{
+        let i = URL(string: i)
+            print("I" , i)
+            g.enter()
+            URLSession.shared.dataTask(with: i!) { data, response, error in
+             guard
+                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                 let data = data, error == nil,
+                 let image = UIImage(data: data)
+                 
+                 else { g.leave() ;return }
+                print("Here", image)
+             DispatchQueue.main.async() {
+                    print("Appended")
+                    imageArrayWatch.append(image)
+                    //imageArr.append(image)
+                    g.leave();
+
+             }
+             }.resume()
+            g.notify(queue: .main) {       ////// 5
+                print("FINALLY")
+                self.removeSpinner()
+
+            }
+            
+        }
+
     }
 
     
