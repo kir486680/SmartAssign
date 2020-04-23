@@ -136,7 +136,7 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 //                "ImageName": imageNameArray,
 //                "time": myDateString
 //                ])
-                db.collection("homeworks").document(generated_name).setData(appendDict) { err in
+                db.collection("homework").document(generated_name).setData(appendDict) { err in
                     if let err = err {
                         print("Error creating new dictionary")
                     } else {

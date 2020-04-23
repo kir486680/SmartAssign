@@ -270,6 +270,8 @@ PODS:
   - GTMSessionFetcher/Core (1.3.1)
   - GTMSessionFetcher/Full (1.3.1):
     - GTMSessionFetcher/Core (= 1.3.1)
+  - ImageViewer.swift (3.0.12):
+    - SDWebImage
   - Kingfisher (5.13.2):
     - Kingfisher/Core (= 5.13.2)
   - Kingfisher/Core (5.13.2)
@@ -281,6 +283,9 @@ PODS:
   - nanopb/encode (0.3.9011)
   - OpalImagePicker (2.1.2)
   - PDFGenerator (3.1.0)
+  - SDWebImage (5.7.3):
+    - SDWebImage/Core (= 5.7.3)
+  - SDWebImage/Core (5.7.3)
 
 DEPENDENCIES:
   - CLTypingLabel (~> 0.4.0)
@@ -289,9 +294,11 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Storage
   - GoogleSignIn
+  - ImageViewer.swift (~> 3.0)
   - Kingfisher (~> 5.0)
   - OpalImagePicker
   - PDFGenerator (~> 3.1)
+  - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
@@ -316,11 +323,13 @@ SPEC REPOS:
     - gRPC-Core
     - GTMAppAuth
     - GTMSessionFetcher
+    - ImageViewer.swift
     - Kingfisher
     - leveldb-library
     - nanopb
     - OpalImagePicker
     - PDFGenerator
+    - SDWebImage
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -344,12 +353,14 @@ SPEC CHECKSUMS:
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  ImageViewer.swift: d4769c57ff8aef6da7e01bb9283f8554469b2498
   Kingfisher: d342c8354c10c3d85a27d6d4c42c41285924b898
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   OpalImagePicker: 51cbf714f337a93c2631219f1a90389ba936077f
   PDFGenerator: 17d6bc525db0a3fcd156fbf00f9d1b8d5cc75d1e
+  SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
 
-PODFILE CHECKSUM: fa051421f05f92f7f7fae33bfeb52bc266697738
+PODFILE CHECKSUM: 57276b3d7735f2daaf2aec751f0a017b03d9b26b
 
 COCOAPODS: 1.9.1

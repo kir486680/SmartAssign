@@ -15,4 +15,6 @@ target 'Flash Chat iOS13' do
   pod 'Kingfisher', '~> 5.0'
   pod 'PDFGenerator', '~> 3.1'
   pod 'GoogleSignIn'
+  pod 'ImageViewer.swift', '~> 3.0'
+  pod 'SDWebImage', '~> 5.0'
 end

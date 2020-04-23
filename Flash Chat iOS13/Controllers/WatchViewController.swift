@@ -20,7 +20,8 @@ var passedTeacher: String = "j"
 var imageName: [String] = []
 var assignmentImages: [UIImage] = []
 var imageArrayWatch: [UIImage] = []
-
+var linkImageArray: [URL] = []
+var linkImageName: [String] = []
 
 func getImages(){
     for i in 0...imageNumber{
@@ -75,7 +76,7 @@ class WatchViewController: UIViewController {
     }
     func get_img(){
         
-        let docRef = db.collection("homeworks").document(selectedIndex)
+        let docRef = db.collection("homework").document(selectedIndex)
         print(docRef)
         docRef.getDocument { (document, error) in
             
@@ -88,7 +89,8 @@ class WatchViewController: UIViewController {
                 //print(yourArray.count)
                 self.imageNumber = document.data()!["NumberOfImages"] as! Int
                 let imageName = document.data()!["ImageName"] as! [String]
-                
+                linkImageName = imageName
+                linkImageArray = imageName.compactMap { URL(string:$0) }
                 print("Name" ,self.imageNumber)
                 
                 self.downloadFromServer(url: imageName)

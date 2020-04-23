@@ -31,6 +31,10 @@
 		889BB053243CEBC20039EAC5 /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BB052243CEBC20039EAC5 /* profileViewController.swift */; };
 		889BCBE52433487100B72E8A /* imageProcessign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BCBE42433487100B72E8A /* imageProcessign.swift */; };
 		889BCBE7243351DE00B72E8A /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BCBE6243351DE00B72E8A /* PDFViewController.swift */; };
+		88EF2BAF245087FA00FE0B8F /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF2BAE245087FA00FE0B8F /* Data.swift */; };
+		88EF2BB12450883800FE0B8F /* ThumbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF2BB02450883800FE0B8F /* ThumbCell.swift */; };
+		88EF2BB32450887000FE0B8F /* GalleryFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF2BB22450887000FE0B8F /* GalleryFlowLayout.swift */; };
+		88EF2BB5245096F200FE0B8F /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EF2BB4245096F200FE0B8F /* Extentions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +63,10 @@
 		889BB052243CEBC20039EAC5 /* profileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
 		889BCBE42433487100B72E8A /* imageProcessign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageProcessign.swift; sourceTree = "<group>"; };
 		889BCBE6243351DE00B72E8A /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		88EF2BAE245087FA00FE0B8F /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		88EF2BB02450883800FE0B8F /* ThumbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbCell.swift; sourceTree = "<group>"; };
+		88EF2BB22450887000FE0B8F /* GalleryFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryFlowLayout.swift; sourceTree = "<group>"; };
+		88EF2BB4245096F200FE0B8F /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		9E65C99F8A85B5FE6701433B /* Pods-Flash Chat iOS13.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash Chat iOS13.debug.xcconfig"; path = "Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13.debug.xcconfig"; sourceTree = "<group>"; };
 		E08D32B47D44593A14C863C7 /* Pods_Flash_Chat_iOS13.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flash_Chat_iOS13.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9DBCA4D1C7797D7F1E85A5F /* Pods-Flash Chat iOS13.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flash Chat iOS13.release.xcconfig"; path = "Target Support Files/Pods-Flash Chat iOS13/Pods-Flash Chat iOS13.release.xcconfig"; sourceTree = "<group>"; };
@@ -162,6 +170,10 @@
 				889BCBE42433487100B72E8A /* imageProcessign.swift */,
 				88874D7B243775AE0036E675 /* SortingAlgorithms.swift */,
 				889BB050243B63430039EAC5 /* dbhelper.swift */,
+				88EF2BAE245087FA00FE0B8F /* Data.swift */,
+				88EF2BB02450883800FE0B8F /* ThumbCell.swift */,
+				88EF2BB22450887000FE0B8F /* GalleryFlowLayout.swift */,
+				88EF2BB4245096F200FE0B8F /* Extentions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -317,16 +329,20 @@
 				889BB04F243B460C0039EAC5 /* user.swift in Sources */,
 				0B628179235DEE8100E35CAF /* SceneDelegate.swift in Sources */,
 				889BCBE7243351DE00B72E8A /* PDFViewController.swift in Sources */,
+				88EF2BAF245087FA00FE0B8F /* Data.swift in Sources */,
 				887A9511242E6B7A00FE1FCA /* MessageCellTableViewCell.swift in Sources */,
 				0B62818F235DF01000E35CAF /* LoginViewController.swift in Sources */,
 				0B628191235DF01B00E35CAF /* ChatViewController.swift in Sources */,
 				887F904D242CB192002F69F9 /* FirebaseStorageManager.swift in Sources */,
 				887A9514242F5CA200FE1FCA /* WatchViewController.swift in Sources */,
+				88EF2BB12450883800FE0B8F /* ThumbCell.swift in Sources */,
 				889BCBE52433487100B72E8A /* imageProcessign.swift in Sources */,
 				0B62818D235DF00B00E35CAF /* RegisterViewController.swift in Sources */,
+				88EF2BB32450887000FE0B8F /* GalleryFlowLayout.swift in Sources */,
 				88874D7C243775AE0036E675 /* SortingAlgorithms.swift in Sources */,
 				889BB051243B63430039EAC5 /* dbhelper.swift in Sources */,
 				889BB053243CEBC20039EAC5 /* profileViewController.swift in Sources */,
+				88EF2BB5245096F200FE0B8F /* Extentions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

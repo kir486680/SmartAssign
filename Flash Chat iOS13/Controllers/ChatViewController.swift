@@ -71,25 +71,28 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
         }
     }
     func getDictionaryForTableView() {
-        db.collection("homeworks").addSnapshotListener(){ (QuerySnapshot, error) in
+        db.collection("homework").addSnapshotListener(){ (QuerySnapshot, error) in
             if let er = error{
                 print(er.localizedDescription)
             }else{
                 if let documents = QuerySnapshot?.documents{
                     self.assignments.removeAll()
-                    print(documents)
-                    for document in documents{
-                        
+                    print(documents.count, "Number of docs")
+                    if documents.count != 0{
+                        for document in documents{
                             
-                        let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String)
-                        
-                        self.assignments.append(assign)
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        
-                        
+                            print(document, "Printed Document",document.data()["homeworkName"])
+                            let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String)
+                            
+                            self.assignments.append(assign)
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                }
+                            
+                            
+                        }
                     }
+
                     
                 }
             }
