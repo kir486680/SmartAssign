@@ -53,6 +53,11 @@ class WatchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        imageArrayWatch.removeAll()
+        linkImageName.removeAll()
+        linkImageArray.removeAll()
+    }
     
     func removeSpinner() {
         DispatchQueue.main.async {
