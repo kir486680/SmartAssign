@@ -32,11 +32,13 @@ func getImages(){
 class WatchViewController: UIViewController {
     var vSpinner : UIView?
     
+    @IBOutlet weak var detailField: UITextView!
     @IBOutlet weak var assignmentName: UILabel!
     @IBOutlet weak var AssignmentTeacher: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
 
+    
     
     var imageNumber: Int = 0
     
@@ -57,6 +59,7 @@ class WatchViewController: UIViewController {
         imageArrayWatch.removeAll()
         linkImageName.removeAll()
         linkImageArray.removeAll()
+        print("Removed")
     }
     
     func removeSpinner() {
@@ -92,6 +95,7 @@ class WatchViewController: UIViewController {
                 //print("Document data: \(dataDescription)")
                 
                 //print(yourArray.count)
+                self.detailField.text = document.data()!["detailText"] as! String
                 self.imageNumber = document.data()!["NumberOfImages"] as! Int
                 let imageName = document.data()!["ImageName"] as! [String]
                 linkImageName = imageName

@@ -60,9 +60,9 @@ class profileViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let document = document, document.exists {
             let receivedTimes = document.data()!["uploadedHw"] as! [String]
             for i in receivedTimes{
-                db.collection("homeworks").document(i).getDocument { (document, error) in
+                db.collection("homework").document(i).getDocument { (document, error) in
                 if let document = document, document.exists {
-                    let assign = Assignments(selfName: document.data()!["selfName"] as! String, teacherName: document.data()!["teacherName"] as! String, assignmentName: document.data()!["homeworkName"] as! String)
+                    let assign = Assignments(selfName: document.data()!["selfName"] as! String, teacherName: document.data()!["teacherName"] as! String, assignmentName: document.data()!["homeworkName"] as! String, assignmenDate: document.data()!["time"] as! String)
                     self.assignments.append(assign)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()

@@ -286,6 +286,7 @@ PODS:
   - SDWebImage (5.7.3):
     - SDWebImage/Core (= 5.7.3)
   - SDWebImage/Core (5.7.3)
+  - SideMenu (6.4.8)
 
 DEPENDENCIES:
   - CLTypingLabel (~> 0.4.0)
@@ -299,6 +300,7 @@ DEPENDENCIES:
   - OpalImagePicker
   - PDFGenerator (~> 3.1)
   - SDWebImage (~> 5.0)
+  - SideMenu (~> 6.0)
 
 SPEC REPOS:
   trunk:
@@ -330,6 +332,7 @@ SPEC REPOS:
     - OpalImagePicker
     - PDFGenerator
     - SDWebImage
+    - SideMenu
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -360,7 +363,8 @@ SPEC CHECKSUMS:
   OpalImagePicker: 51cbf714f337a93c2631219f1a90389ba936077f
   PDFGenerator: 17d6bc525db0a3fcd156fbf00f9d1b8d5cc75d1e
   SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
+  SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
 
-PODFILE CHECKSUM: 57276b3d7735f2daaf2aec751f0a017b03d9b26b
+PODFILE CHECKSUM: 34939787a121523e26389aaa7ef8bae19c78470a
 
 COCOAPODS: 1.9.1

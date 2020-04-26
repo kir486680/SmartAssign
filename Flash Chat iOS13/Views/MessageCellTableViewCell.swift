@@ -12,6 +12,7 @@ class MessageCellTableViewCell: UITableViewCell {
 
     @IBOutlet weak var teacherName: UILabel!
     @IBOutlet weak var assignmentName: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     
     override func awakeFromNib() {

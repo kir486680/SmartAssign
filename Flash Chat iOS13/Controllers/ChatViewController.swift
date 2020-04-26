@@ -13,6 +13,7 @@ import FirebaseDatabase
 import FirebaseCore
 import OpalImagePicker
 import Photos
+import SideMenu
 
 
 var classNameView: [String] = []
@@ -41,6 +42,17 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
     
     var assignments: [Assignments] = []
     
+    private var filteredTeachersAndNames = [Assignments]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
+        
+    private var searchIsEmpty: Bool {
+        guard let text = searchController.searchBar.text else {return false}
+        return text.isEmpty
+    }
+    private var isFiltering: Bool{
+        return searchController.isActive && !searchIsEmpty
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +64,14 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         getDictionaryForTableView()
-        
+        //setup the search contoller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for name or teacher"
+        searchController.hidesNavigationBarDuringPresentation = true
+        tableView.tableHeaderView = nil
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         //print("registered")
 
     }
@@ -82,7 +101,7 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
                         for document in documents{
                             
                             print(document, "Printed Document",document.data()["homeworkName"])
-                            let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String)
+                            let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String, assignmenDate: document.data()["time"] as! String)
                             
                             self.assignments.append(assign)
                                 DispatchQueue.main.async {
@@ -107,6 +126,11 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
 
 extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if isFiltering{
+            return filteredTeachersAndNames.count
+        }
+        
         return assignments.count
         
     }
@@ -114,9 +138,21 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //print("using")
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellDemo", for: indexPath) as! MessageCellTableViewCell
+        
+        if isFiltering{
+            cell.teacherName.text = filteredTeachersAndNames[indexPath.row].teacherName
+            cell.assignmentName.text = filteredTeachersAndNames[indexPath.row].assignmentName
+            cell.dateLabel.text = filteredTeachersAndNames[indexPath.row].assignmenDate
+            print("is in Filtering")
+            return cell
+        }
+        print("Not in filtering")
+        
         //print(cell)
         cell.teacherName.text = assignments[indexPath.row].teacherName
         cell.assignmentName.text = assignments[indexPath.row].assignmentName
+        cell.dateLabel.text = assignments[indexPath.row].assignmenDate
+    
         
         return cell
     }
@@ -150,3 +186,15 @@ func getAssetThumbnail(assets: [PHAsset]) -> [UIImage] {
 }
 
 
+extension ChatViewController: UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForText(searchController.searchBar.text!)
+    }
+    
+    private func filterContentForText(_ searchText: String){
+        filteredTeachersAndNames = assignments.filter({ (assignment: Assignments) -> Bool in
+            return assignment.assignmentName.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+}

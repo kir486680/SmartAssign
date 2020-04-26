@@ -17,4 +17,5 @@ target 'Flash Chat iOS13' do
   pod 'GoogleSignIn'
   pod 'ImageViewer.swift', '~> 3.0'
   pod 'SDWebImage', '~> 5.0'
+  pod 'SideMenu', '~> 6.0'
 end

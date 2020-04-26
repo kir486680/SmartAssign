@@ -44,6 +44,8 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var showingData: [String] = teacherClassDict["Parker"] as! [String]
    
     
+    @IBOutlet weak var detailField: UITextView!
+    
     @IBOutlet weak var homeworkName: UITextField!
 
     @IBOutlet weak var pickerView: UIPickerView!
@@ -126,7 +128,8 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 "ClassName" : textView1,
                 "NumberOfImages" : imageArray.count,
                 "ImageName": imageNameArray,
-                "time": myDateString] as [String : Any]
+                "time": myDateString,
+                "detailText": self.detailField.text] as [String : Any]
                 print("Array got of image URLS", appendDict["ImageName"])
 //                db.collection("homeworks").addDocument(data: ["senderID" : userID,
 //                "homeworkName" : homeworkName,
