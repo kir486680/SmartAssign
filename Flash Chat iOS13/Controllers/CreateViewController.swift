@@ -16,6 +16,8 @@ import FirebaseCore
 import OpalImagePicker
 import Photos
 
+
+
 let userID = Auth.auth().currentUser!.uid
 var globalAssets: [PHAsset] = []
 var pickerTeacherData: [String] = []
@@ -23,7 +25,7 @@ var pickerClassData: [String]  = []
 let db = Firestore.firestore()
 var textView: String = "Parker"
 var textView1: String = "Str"
-let imageArray: [UIImage] = getAssetThumbnail(assets: globalAssets)
+var imageTakenArray: [UIImage] = []
 var imageNameArray: [String] = []
 var teacherClassDict = [String: NSArray]()
 extension UIViewController {
@@ -36,7 +38,7 @@ extension UIViewController {
        view.endEditing(true)
     }
 }
-class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     
     
@@ -52,6 +54,9 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     @IBOutlet weak var pickerView1: UIPickerView!
     
+    var pickedImage = false
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerClassData = removeDuplicates(array: pickerClassData)
@@ -65,10 +70,16 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         print("Teacher class dict", teacherClassDict[textView])
         print("Class", pickerClassData)
         print("Teacher", pickerTeacherData)
+
         //print(pickerClassData)
         //print("Teachers " , pickerTeacherData)
         //let pickerClassData = getSomeData(field: "ClassName")
         // Do any additional setup after loading the view.
+        // Dclare an alert
+
+        
+
+
     }
     
 
@@ -109,28 +120,23 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBAction func addNewHomework(_ sender: UIBarButtonItem) {
         
         if let homeworkName = homeworkName.text, let _ = Auth.auth().currentUser?.email{
-            let imageArray: [UIImage] =  getAssetThumbnail(assets: globalAssets)
-            //imageNameArray = generateImageName(userId: userID, assignmentName: homeworkName)
-            
-            //uploadImages(userId: userID, imagesArray: imageArray, assignmentName: homeworkName)
-            //uploadImages(userId: userID, imagesArray: imageArray, assignmentName: homeworkName)
-            uploadImages(userId: userID, imagesArray: imageArray, assignmentName: homeworkName)
+            let imageArray: [UIImage] =  imageTakenArray
+            print("received array", imageArray)
+
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let myDateString = formatter.string(from: Date())
             let generated_name = "\(myDateString)\(userEmail)"
-
-            waitSomeTime(after: 5){
-                let appendDict = ["senderID" : userID,
-                                  "selfName" : generated_name,
-                "homeworkName" : homeworkName,
-                "teacherName" : textView,
-                "ClassName" : textView1,
-                "NumberOfImages" : imageArray.count,
-                "ImageName": imageNameArray,
-                "time": myDateString,
-                "detailText": self.detailField.text] as [String : Any]
-                print("Array got of image URLS", appendDict["ImageName"])
+            var appendDict = ["senderID" : userID,
+                              "selfName" : generated_name,
+            "homeworkName" : homeworkName,
+            "teacherName" : textView,
+            "ClassName" : textView1,
+            "NumberOfImages" : imageArray.count,
+            "ImageName": imageNameArray,
+            "time": myDateString,
+            "detailText": self.detailField.text] as [String : Any]
+            print("Array got of image URLS", imageNameArray)
 //                db.collection("homeworks").addDocument(data: ["senderID" : userID,
 //                "homeworkName" : homeworkName,
 //                "teacherName" : textView,
@@ -139,15 +145,14 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 //                "ImageName": imageNameArray,
 //                "time": myDateString
 //                ])
-                db.collection("homework").document(generated_name).setData(appendDict) { err in
-                    if let err = err {
-                        print("Error creating new dictionary")
-                    } else {
-                        print("Appended New Assignment")
-                    }
-                }
-            }
-            appendToTheUser(email: userEmail, field: "uploadedHw", data: generated_name)
+
+            uploadImages(userId: userID, imagesArray: imageTakenArray, assignmentName: homeworkName, passedDict: appendDict, generated_name: generated_name)
+
+
+
+             appendToTheUser(email: userEmail, field: "uploadedHw", data: generated_name)
+ 
+            
 
             print("uploaded")
 
@@ -158,7 +163,41 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
         
     }
+    func triggerCamera(){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .camera
+            self.present(imagePickerController, animated: true, completion: nil)
+            
+        }
+    }
+    @IBAction func takePictures(_ sender: UIButton) {
+        triggerCamera()
+    }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        print("Appending to the array")
+        imageTakenArray.append(image)
+        print(imageTakenArray)
+        self.dismiss(animated: true, completion: nil)
+        let refreshAlert = UIAlertController(title: "Refresh", message: "All data will be lost.", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.triggerCamera()
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Cancel Logic here")
+        }))
+
+        present(refreshAlert, animated: true, completion: nil)
+    }
     @IBAction func imageSelector(_ sender: UIButton) {
         print(pickerTeacherData)
         let imagePicker = OpalImagePickerController()
@@ -169,7 +208,8 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             //Dismiss Controller
             globalAssets = assets
             
-            
+            let UIImages =  getAssetThumbnail(assets: assets)
+            imageTakenArray.append(contentsOf: UIImages)
             
                 
             imagePicker.dismiss(animated: true, completion: nil)
@@ -177,11 +217,13 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             //Cancel action?
         })
     }
-    func uploadImages(userId: String, imagesArray : [UIImage], assignmentName : String){
+    func uploadImages(userId: String, imagesArray : [UIImage], assignmentName : String, passedDict: [String:Any], generated_name: String){
+        let g = DispatchGroup()
         var imageCount = 1;
         imageNameArray.removeAll()
         
         for image in imagesArray{
+            g.enter()
             if let data = image.pngData() { // convert your UIImage into Data object using png representation
                   FirebaseStorageManager().uploadImageData(data: data, serverFileName: "image+\(userID)+\(assignmentName)+\(imageCount).png") { (isSuccess, url) in
                          //print("uploadImageData: \(isSuccess), \(url)")
@@ -190,11 +232,23 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     imageNameArray.append(url!)
                     print("Appended")
                          //imageNameArray.append("image+\(userID)+\(assignmentName)+\(imageCount).png")
+                    g.leave();
                    }
             }
             imageCount += 1
         }
+        g.notify(queue: .main) {       ////// 5
+            var passedDictArray = passedDict
+            passedDictArray["ImageName"] = imageNameArray
+            db.collection("homework").document(generated_name).setData(passedDictArray) { err in
+                if let err = err {
+                    print("Error creating new dictionary")
+                } else {
+                    print("Appended New Assignment")
+                }
+            }
 
+        }
     
     }
 
@@ -267,8 +321,9 @@ func getSomeDataCourse(field: String) {
 
 }
 func generateImageName(userId: String, assignmentName : String) -> [String] {
+    
     var names: [String] = []
-    for i in 1...imageArray.count{
+    for i in 1...imageTakenArray.count{
         names.append("gs://homeworkapp-21143.appspot.com/uploads/image+\(userID)+\(assignmentName)+\(i).png")
     }
     return names

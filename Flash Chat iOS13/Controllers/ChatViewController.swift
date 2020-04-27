@@ -57,7 +57,7 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Homework Name"
-
+;
         navigationItem.hidesBackButton = true
         let nib = UINib(nibName: "MessageCellTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "CellDemo")
@@ -69,9 +69,10 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search for name or teacher"
         searchController.hidesNavigationBarDuringPresentation = true
-        tableView.tableHeaderView = nil
+        
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
         //print("registered")
 
     }

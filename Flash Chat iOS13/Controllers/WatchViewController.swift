@@ -55,12 +55,17 @@ class WatchViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        imageArrayWatch.removeAll()
-        linkImageName.removeAll()
-        linkImageArray.removeAll()
-        print("Removed")
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParent {
+            imageArrayWatch.removeAll()
+            linkImageName.removeAll()
+            linkImageArray.removeAll()
+            print("Removed")
+        }
     }
+    
+
     
     func removeSpinner() {
         DispatchQueue.main.async {
@@ -163,6 +168,16 @@ class WatchViewController: UIViewController {
     */
 
 }
+extension UIViewController {
+         @objc func navigationShouldPopOnBackButton() -> Bool {
+         return true
+        }
+    }
 
+extension UINavigationController: UINavigationBarDelegate {
+         public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+              return self.topViewController?.navigationShouldPopOnBackButton() ?? true
+        }
+    }
 
 
