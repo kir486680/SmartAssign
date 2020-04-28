@@ -14,4 +14,5 @@ struct Assignments{
     let teacherName: String
     let assignmentName: String
     let assignmenDate: String
+    let uniqueName:String
 }

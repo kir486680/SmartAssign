@@ -67,9 +67,8 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
         //setup the search contoller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for name or teacher"
-        searchController.hidesNavigationBarDuringPresentation = true
-        
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
@@ -102,7 +101,7 @@ class ChatViewController: UIViewController, OpalImagePickerControllerDelegate {
                         for document in documents{
                             
                             print(document, "Printed Document",document.data()["homeworkName"])
-                            let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String, assignmenDate: document.data()["time"] as! String)
+                            let assign = Assignments(selfName:document.data()["selfName"] as! String , teacherName: document.data()["teacherName"] as! String, assignmentName: document.data()["homeworkName"] as! String, assignmenDate: document.data()["time"] as! String, uniqueName: document.data()["selfName"] as! String)
                             
                             self.assignments.append(assign)
                                 DispatchQueue.main.async {

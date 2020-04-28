@@ -122,29 +122,33 @@ class WatchViewController: UIViewController {
             
         }
     }
+    func download(name: String){
+
+    }
     func downloadFromServer(url: [String]){
         self.showSpinner(onView: self.view)
         let g = DispatchGroup()
         for i in url{
-        let i = URL(string: i)
-            print("I" , i)
+            
+            
+            
+            
             g.enter()
-            URLSession.shared.dataTask(with: i!) { data, response, error in
-             guard
-                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                 let data = data, error == nil,
-                 let image = UIImage(data: data)
-                 
-                 else { g.leave() ;return }
-                print("Here", image)
-             DispatchQueue.main.async() {
-                    print("Appended")
-                    imageArrayWatch.append(image)
-                    //imageArr.append(image)
-                    g.leave();
+            let url = "uploads/\(i)"
+            print(url)
+            let storage = Storage.storage()
+            let ref = storage.reference().child(url)
+            ref.getData(maxSize: 1 * 4000 * 4000) { data, error in
+                if let error = error {
+                    print("\(error)")
+                }
 
-             }
-             }.resume()
+                DispatchQueue.main.async {
+                    let image = UIImage(data: data!)
+                    imageArrayWatch.append(image!)
+                    g.leave();
+                }
+            }
             g.notify(queue: .main) {       ////// 5
                 print("FINALLY")
                 self.removeSpinner()

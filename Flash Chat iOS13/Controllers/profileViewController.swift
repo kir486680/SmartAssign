@@ -52,6 +52,25 @@ class profileViewController: UIViewController, UITableViewDelegate, UITableViewD
         passedTeacher = assignments[indexPath.row].teacherName
         performSegue(withIdentifier: "goWatchSelf", sender: self)
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+          print("Deleted")
+            remove(assignments[indexPath.row].uniqueName)
+            assignments.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+      }
+    private func remove(_ id: String) -> Void {
+
+        db.collection("homework").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
     func getMyAssignments(email: String){
         
         
@@ -62,7 +81,7 @@ class profileViewController: UIViewController, UITableViewDelegate, UITableViewD
             for i in receivedTimes{
                 db.collection("homework").document(i).getDocument { (document, error) in
                 if let document = document, document.exists {
-                    let assign = Assignments(selfName: document.data()!["selfName"] as! String, teacherName: document.data()!["teacherName"] as! String, assignmentName: document.data()!["homeworkName"] as! String, assignmenDate: document.data()!["time"] as! String)
+                    let assign = Assignments(selfName: document.data()!["selfName"] as! String, teacherName: document.data()!["teacherName"] as! String, assignmentName: document.data()!["homeworkName"] as! String, assignmenDate: document.data()!["time"] as! String, uniqueName: document.data()!["selfName"] as! String)
                     self.assignments.append(assign)
                     DispatchQueue.main.async {
                         self.tableView.reloadData()

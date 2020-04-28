@@ -219,23 +219,23 @@ class CreateViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     func uploadImages(userId: String, imagesArray : [UIImage], assignmentName : String, passedDict: [String:Any], generated_name: String){
         let g = DispatchGroup()
-        var imageCount = 1;
         imageNameArray.removeAll()
-        
+        var imageCount = 1;
         for image in imagesArray{
             g.enter()
             if let data = image.pngData() { // convert your UIImage into Data object using png representation
                   FirebaseStorageManager().uploadImageData(data: data, serverFileName: "image+\(userID)+\(assignmentName)+\(imageCount).png") { (isSuccess, url) in
                          //print("uploadImageData: \(isSuccess), \(url)")
-                    print("Here is your url", url!)
                     
-                    imageNameArray.append(url!)
-                    print("Appended")
+                    
+                    imageNameArray.append("image+\(userID)+\(assignmentName)+\(imageCount).png")
+                    print("image+\(userID)+\(assignmentName)+\(imageCount).png")
+                    imageCount += 1
                          //imageNameArray.append("image+\(userID)+\(assignmentName)+\(imageCount).png")
                     g.leave();
                    }
             }
-            imageCount += 1
+            
         }
         g.notify(queue: .main) {       ////// 5
             var passedDictArray = passedDict
@@ -324,7 +324,7 @@ func generateImageName(userId: String, assignmentName : String) -> [String] {
     
     var names: [String] = []
     for i in 1...imageTakenArray.count{
-        names.append("gs://homeworkapp-21143.appspot.com/uploads/image+\(userID)+\(assignmentName)+\(i).png")
+        names.append("image+\(userID)+\(assignmentName)+\(i).png")
     }
     return names
     

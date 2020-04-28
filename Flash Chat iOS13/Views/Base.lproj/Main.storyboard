@@ -280,7 +280,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xlo-0G-XA6">
                                 <rect key="frame" x="0.0" y="802" width="414" height="60"/>
-                                <color key="backgroundColor" name="BrandPurple"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="cV2-4S-DU8"/>
                                 </constraints>
@@ -293,13 +293,15 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnX-Gf-qHd">
                                 <rect key="frame" x="104" y="817" width="207" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="View My Profile "/>
+                                <state key="normal" title="My Uploads ">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <segue destination="n6g-dH-FL6" kind="show" id="9oE-1i-MxN"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" name="BrandPurple"/>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xlo-0G-XA6" firstAttribute="leading" secondItem="6YX-ca-E8f" secondAttribute="leading" id="JMa-Pn-SZL"/>
                             <constraint firstItem="6YX-ca-E8f" firstAttribute="bottom" secondItem="xlo-0G-XA6" secondAttribute="bottom" id="KKG-6H-f0d"/>
@@ -514,7 +516,7 @@
             </objects>
             <point key="canvasLocation" x="3851" y="-960"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--My Uploaded Assignments-->
         <scene sceneID="RKa-Ek-mBG">
             <objects>
                 <viewController id="54N-YR-uBR" customClass="profileViewController" customModule="Smart_Assign" customModuleProvider="target" sceneMemberID="viewController">
@@ -531,7 +533,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="BKQ-iH-8nx"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jCP-uc-qNT"/>
+                    <navigationItem key="navigationItem" title="My Uploaded Assignments" id="jCP-uc-qNT"/>
                     <connections>
                         <outlet property="tableView" destination="Qjf-Rf-ExJ" id="ptc-Jv-C7y"/>
                         <segue destination="ggs-RG-ghU" kind="show" identifier="goWatchSelf" id="3JA-Lw-8no"/>
@@ -597,7 +599,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ggq-mE-xg0"/>
-        <segue reference="ncN-rC-aTQ"/>
+        <segue reference="3JA-Lw-8no"/>
         <segue reference="UTi-QL-77I"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -607,9 +609,6 @@
         </namedColor>
         <namedColor name="BrandLightBlue">
             <color red="0.92199999094009399" green="0.98000001907348633" blue="0.99599999189376831" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="BrandPurple">
-            <color red="0.67500001192092896" green="0.43500000238418579" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
